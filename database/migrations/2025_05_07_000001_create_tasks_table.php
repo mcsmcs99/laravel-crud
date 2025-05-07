@@ -6,14 +6,14 @@ use Illuminate\Support\Facades\Schema;
 
 class CreateTasksTable extends Migration
 {
-    public function up(): void
+    public function up()
     {
         Schema::create('tasks', function (Blueprint $table) {
             $table->id();
             $table->string('title');
-            $table->text('description')->nullable();
-            $table->enum('status', ['pendente', 'em andamento', 'concluida'])->default('pendente');
-            $table->timestamps(); // cria created_at e updated_at
+            $table->text('description');
+            $table->enum('status', ['pending', 'in_progress', 'completed'])->default('pending');
+            $table->timestamps();
         });
     }
 
