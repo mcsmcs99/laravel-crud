@@ -30,4 +30,5 @@ docker-compose up -d --build
 docker exec -it laravel-app bash
 php artisan key:generate
 php artisan migrate
-
+npm install
+npm run build

@@ -14,6 +14,10 @@ RUN apt-get update && apt-get install -y \
 # Baixe o Composer
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
+# Instala o Node.js (LTS) e npm
+RUN curl -fsSL https://deb.nodesource.com/setup_20.x | bash - \
+    && apt-get install -y nodejs
+
 # Defina o diretório de trabalho
 WORKDIR /var/www
 
