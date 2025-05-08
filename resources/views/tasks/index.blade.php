@@ -1,38 +1,38 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container">
-    <h1 class="text-2xl mb-4">Tarefas</h1>
-    <a href="{{ route('tasks.create') }}" class="btn btn-primary mb-4">Nova Tarefa</a>
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <h2 class="text-3xl font-semibold text-gray-800 mb-4">Listagem de Tarefas</h2>
 
-    @if(session('success'))
-        <div class="alert alert-success">{{ session('success') }}</div>
-    @endif
+        <div class="mb-4 flex justify-between items-center">
+            <a href="{{ route('tasks.create') }}" class="text-white bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded-md">Nova Tarefa</a>
+            <div class="flex space-x-4">
+                <form action="{{ route('tasks.index') }}" method="GET">
+                    <select name="status" class="border-gray-300 p-2 rounded-md">
+                        <option value="">Filtrar por status</option>
+                        <option value="pendente">Pendente</option>
+                        <option value="em andamento">Em andamento</option>
+                        <option value="concluída">Concluída</option>
+                    </select>
+                    <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded-md">Filtrar</button>
+                </form>
+            </div>
+        </div>
 
-    <table class="min-w-full table-auto">
-        <thead>
-            <tr>
-                <th class="px-4 py-2">Título</th>
-                <th class="px-4 py-2">Status</th>
-                <th class="px-4 py-2">Ações</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach($tasks as $task)
-                <tr>
-                    <td class="border px-4 py-2">{{ $task->title }}</td>
-                    <td class="border px-4 py-2">{{ $task->status }}</td>
-                    <td class="border px-4 py-2">
-                        <a href="{{ route('tasks.edit', $task) }}" class="btn btn-warning">Editar</a>
-                        <form action="{{ route('tasks.destroy', $task) }}" method="POST" class="inline">
-                            @csrf
-                            @method('DELETE')
-                            <button type="submit" class="btn btn-danger">Excluir</button>
-                        </form>
-                    </td>
-                </tr>
-            @endforeach
-        </tbody>
-    </table>
-</div>
+        <div class="bg-white shadow sm:rounded-lg overflow-hidden">
+            <div class="p-6">
+                <ul>
+                    @foreach ($tasks as $task)
+                        <li class="flex justify-between items-center py-2 border-b">
+                            <div>
+                                <span class="font-medium text-gray-600">{{ $task->title }}</span>
+                                <p class="text-sm text-gray-500">{{ $task->description }}</p>
+                            </div>
+                            <span class="text-sm {{ $task->status == 'concluída' ? 'text-green-600' : 'text-yellow-600' }}">{{ ucfirst($task->status) }}</span>
+                        </li>
+                    @endforeach
+                </ul>
+            </div>
+        </div>
+    </div>
 @endsection
