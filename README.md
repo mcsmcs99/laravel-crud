@@ -1,19 +1,12 @@
-# Laravel Docker Starter 🚀
-
-Este projeto utiliza **Laravel + Docker** para desenvolvimento isolado, prático e escalável.
-
----
-
-## 📦 Requisitos
+## Requisitos
 
 - [Docker](https://www.docker.com/)
 - [Docker Compose](https://docs.docker.com/compose/)
-- `make` (opcional, para facilitar comandos em Linux/Mac)
 - Linux ou WSL no Windows
 
 ---
 
-## 🚀 Passos para rodar o projeto
+## Passos para rodar o projeto
 
 ```bash
 # 1. Clone o repositório
@@ -36,7 +29,10 @@ php artisan key:generate
 php artisan migrate
 php artisan db:seed
 npm install
-npm run build
 
 # 6. Navegador
 http://localhost:8000/
+
+# 7. Acesso
+usuário: edgard@medeiros.com
+senha: 12345678
