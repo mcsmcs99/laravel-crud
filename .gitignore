@@ -25,9 +25,6 @@ docker/supervisord/logs
 .DS_Store
 Thumbs.db
 
-# Composer
-composer.lock
-
 # NPM/Yarn logs
 npm-debug.log
 yarn-debug.log
