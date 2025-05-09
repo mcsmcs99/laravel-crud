@@ -11,7 +11,7 @@ class CreateTasksTable extends Migration
         Schema::create('tasks', function (Blueprint $table) {
             $table->id();
             $table->string('title');
-            $table->text('description');
+            $table->string('description', 1000);
             $table->enum('status', ['pending', 'in_progress', 'completed'])->default('pending');
             $table->timestamps();
         });
@@ -22,4 +22,3 @@ class CreateTasksTable extends Migration
         Schema::dropIfExists('tasks');
     }
 }
-
