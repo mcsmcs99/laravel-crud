@@ -30,5 +30,6 @@ docker-compose up -d --build
 docker exec -it laravel-app bash
 php artisan key:generate
 php artisan migrate
+php artisan db:seed --class=TaskSeeder
 npm install
 npm run build
