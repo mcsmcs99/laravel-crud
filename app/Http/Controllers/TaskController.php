@@ -8,9 +8,31 @@ use Illuminate\Http\Request;
 class TaskController extends Controller
 {
     // Exibir a listagem de tarefas
-    public function index()
+    public function index(Request $request)
     {
-        $tasks = Task::all();  // Pegando todas as tarefas
+        // Inicializa a consulta
+        $query = Task::query();
+        
+        // Filtrando por status, se fornecido
+        if ($request->has('status') && $request->status != '') {
+            $query->where('status', $request->status);
+        }
+
+        // Ordenação por data de criação
+        if ($request->has('order_created') && $request->order_created != '') {
+            $orderCreated = $request->order_created === 'desc' ? 'desc' : 'asc';
+            $query->orderBy('created_at', $orderCreated);
+        }
+
+        // Ordenação por data de atualização
+        if ($request->has('order_updated') && $request->order_updated != '') {
+            $orderUpdated = $request->order_updated === 'desc' ? 'desc' : 'asc';
+            $query->orderBy('updated_at', $orderUpdated);
+        }
+
+        // Paginação com 10 tarefas por página
+        $tasks = $query->paginate(10);
+
         return view('tasks.index', compact('tasks'));
     }
 
@@ -29,7 +51,11 @@ class TaskController extends Controller
             'status' => 'required|in:pending,in_progress,completed',
         ]);
 
-        Task::create($request->all());  // Criação da tarefa
+        Task::create([
+            'title' => $request->input('title'),
+            'description' => $request->input('description'),
+            'status' => $request->input('status'),
+        ]);
 
         return redirect()->route('tasks.index')->with('success', 'Tarefa criada com sucesso!');
     }
