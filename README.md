@@ -17,19 +17,26 @@ Este projeto utiliza **Laravel + Docker** para desenvolvimento isolado, prático
 
 ```bash
 # 1. Clone o repositório
-git clone https://github.com/seu-usuario/seu-projeto.git
-cd seu-projeto
+git clone https://github.com/mcsmcs99/laravel-crud.git
+cd laravel-crud
 
 # 2. Copie o arquivo de exemplo do .env
 cp .env.example .env
 
-# 3. Suba os containers com Docker Compose
+# 3. Se estiver no linux rode esse comando antes de gerar os containers para não dar erro de permissão
+chmod 777 -R .
+
+# 4. Suba os containers com Docker Compose
 docker-compose up -d --build
 
-# 4. Instale as dependências do PHP (dentro do container)
+# 5. Instale as dependências do PHP (dentro do container)
 docker exec -it laravel-app bash
+composer install
 php artisan key:generate
 php artisan migrate
 php artisan db:seed
 npm install
 npm run build
+
+# 6. Navegador
+http://localhost:8000/
